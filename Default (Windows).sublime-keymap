@@ -1,0 +1,17 @@
+[
+	{
+		"keys":["ctrl+b"],
+		"command":"build",
+		"args":{
+			"variant":""
+		}
+	},
+	{
+		"keys":["ctrl+shift+b"],
+		"command":"build",
+		"args":{
+			"variant":"Run"
+		}
+	},
+	{"keys": ["alt+shift+f"], "command": "reindent", "args": {"single_line": false}},
+]
