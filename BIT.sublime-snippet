@@ -1,0 +1,46 @@
+<snippet>
+	<content><![CDATA[
+class BIT{
+	int N;
+	int* B1;
+	int* B2;
+	public:
+		BIT(int n){
+			n++;
+			B1=new int[n];
+			B2=new int[n];
+			rep(i,0,n)B1[i]=B2[i]=0;
+			N=n;
+		}
+		int query(int* ft,int b){
+			int sum=0;
+			for(;b>0;b-=(b&-b))sum+=ft[b];
+			return sum;
+		}
+		// Range query: Returns the sum of all elements in [1...b]
+		int query(int b) {
+		    return query(B1, b) * b - query(B2, b);
+		}
+		// Range query: Returns the sum of all elements in [i...j]
+		int range_query(int i, int j)    {
+		    return query(j) - query(i - 1);
+		}
+		// Point update: Adds v to the value at position k in the array
+		void update(int* ft, int k, int v) {
+			for (; k <= N; k += k&-k) ft[k] += v;
+		}
+
+		// Range update: Adds v to each element in [i...j]
+		void range_update(int i, int j, int v){
+			update(B1, i, v);
+			update(B1, j + 1, -v);
+			update(B2, i, v * (i - 1));
+			update(B2, j + 1, -v * j);
+		}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>BIT</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c,source.c++</scope>
+</snippet>
