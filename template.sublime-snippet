@@ -17,6 +17,15 @@
 #include <set>
 #include <stack>
 #include <string>
+
+#ifdef PRINTERS
+#include "printers.hpp"
+using namespace printers;
+#define tr(a)		cout<<a<<endl;
+#else
+#define tr(a)    
+#endif
+
 #define ll          long long
 #define pb          push_back
 #define mp          make_pair
