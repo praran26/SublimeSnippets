@@ -1,1 +1,1 @@
-# SublimeSnippets
+# Sublime Snippets
