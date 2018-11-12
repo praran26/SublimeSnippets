@@ -1,0 +1,35 @@
+<snippet>
+	<content><![CDATA[
+struct BIT
+{
+	int n,minval,maxval;
+	vector<ll>x;
+	BIT(int _maxval,int _minval=1):n(_maxval-_minval+2),minval(_minval),maxval(_maxval),x(_maxval-_minval+2){}
+	void update(int idx,int val=1){
+		idx+=1-minval;
+		for(;idx<n;idx+=idx&-idx)x[idx]+=val;
+	}
+	int query(int idx){
+		idx+=1-minval;
+		int ans=0;
+		for(;idx;idx-=idx&-idx)
+			ans+=x[idx];
+		return ans;
+	}
+	int upper_bound(int p){ // max value i such that query(i)<=p
+		int idx=0;
+		for(int i=1<<(31-__builtin_clz(n));i;i>>=1){
+			if(i+idx<n and x[i+idx]<=p){
+				p-=x[i+idx];
+				idx+=i;
+			}
+		}
+		return idx+minval-1;
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>BIT</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

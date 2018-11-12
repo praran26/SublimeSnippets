@@ -1,0 +1,28 @@
+[
+	{
+		"keys":["ctrl+b"],
+		"command":"build",
+		"args":{
+			"variant":""
+		}
+	},
+	{
+		"keys":["ctrl+shift+b"],
+		"command":"build",
+		"args":{
+			"variant":"Run"
+		}
+	},
+	{
+		"keys":["ctrl+alt+b"],
+		"command":"build",
+		"args":{
+			"variant":"Fast"
+		}
+	},
+	{
+		"keys": ["alt+shift+f"], "command": "reindent", "args": {"single_line": false}
+	},
+	{ "keys": ["ctrl+tab"], "command": "next_view" },
+	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" }
+]

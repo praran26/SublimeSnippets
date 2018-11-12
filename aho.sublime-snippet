@@ -1,0 +1,61 @@
+<snippet>
+	<content><![CDATA[
+vector<string> pat;
+struct AC {
+	int N, P;
+	vector<map<char, int>> next;
+	vector<int> link, out_link;
+	vector<vector<int>> out;
+	AC(): N(0), P(0) { node(); }
+	int node() {
+		next.emplace_back(); link.emplace_back(0);
+		out_link.emplace_back(0); out.emplace_back(0);
+		return N++;
+	}
+	void add_pattern(const string& T) {
+		pat.emplace_back(T);
+		int u = 0;
+		for (auto c : T) {
+			if (!next[u][c]) next[u][c] = node();
+			u = next[u][c];
+		}
+		out[u].push_back(P++);
+	}
+	void compute() {
+		queue<int> q;
+		for (q.push(0);!q.empty();){
+			int u = q.front(); q.pop();
+			for (auto e : next[u]) {
+				int v = e.S;
+				link[v] = u ? advance(link[u], e.F) : 0;
+				out_link[v] = out[link[v]].empty() ? out_link[link[v]] : link[v];
+				q.push(e.S);
+			}
+		}
+	}
+	int advance(int u, char c) {
+		while (u && next[u].find(c) == next[u].end())
+			u = link[u];
+		if (next[u].find(c) != next[u].end())
+			u = next[u][c];
+		return u;
+	}
+	void match(const string& s) {
+		int u = 0;
+		for (int i=0;i<sz(s);i++) {
+			char c = s[i];
+			u = advance(u, c);
+			for (int v = u; v; v = out_link[v]){
+				for (auto p : out[v]){
+					// pat[p] found at i-sz(pat[p])+1
+				}
+			}
+		}
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>aho</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

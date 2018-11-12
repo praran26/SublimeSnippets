@@ -1,31 +1,20 @@
 {
-    "cmd": ["C:\\MinGW\\bin\\g++", "${file}", "-o", "${file_base_name}", "-Wall", "-Wextra", "-pedantic", "-Wshadow", "-Wformat=2", "-std=gnu++14", "-O2", "-D_GLIBCXX_DEBUG", "-D_GLIBCXX_DEBUG_PEDANTIC","-D PRINTERS"],
-    "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-    "working_dir": "${project_path:$folder}",
-    "selector": "source.c, source.c++",
-    "shell": "true",
-    "variants":
-    [
-        {
-            "name": "Run",
-            "cmd": ["start", "cmd.exe", "@cmd", "/k", "${file_base_name}"]
-        }
-    ]
+	"cmd": ["g++", "${file}", "-o", "${file_path}/${file_base_name}", "-Wall", "-Wextra", "-pedantic", "-Wshadow",
+		"-Wformat=2", "-std=gnu++17", "-O2", "-D_GLIBCXX_DEBUG", "-D_GLIBCXX_DEBUG_PEDANTIC","-fsanitize=address", "-fsanitize=undefined", "-fno-sanitize-recover", "-fstack-protector","-DPRINTERS"],
+	"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+	"working_dir": "${file_path}",
+	"selector": "source.c, source.c++, source.cxx, source.cpp",
+	"variants":
+	[
+		{
+			"name": "Run",
+			"shell": true,
+			"cmd": ["gnome-terminal -- bash -c \"ulimit -s 262144 && ulimit -v unlimited; ${file_path}/${file_base_name}; read line;exit; exec bash\""]
+		},
+		{
+			"name": "Fast",
+			"shell": false,
+			"cmd": ["g++", "${file}", "-o", "${file_path}/${file_base_name}","-std=gnu++17", "-O2","-DPRINTERS"]
+		}
+	]
 }
-
-
-
-// {
-//     "cmd": ["C:\\MinGW\\bin\\g++", "${file}", "-o", "${file_base_name}","-std=gnu++14"],
-//     "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-//     "working_dir": "${file_path}",
-//     "selector": "source.c, source.c++",
-//     "shell": "true",
-//     "variants":
-//     [
-//         {
-//             "name": "Run",
-//             "cmd": ["start", "cmd.exe", "@cmd", "/k", "${file_base_name}"]
-//         }
-//     ]
-// }

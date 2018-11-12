@@ -1,21 +1,22 @@
 <snippet>
 	<content><![CDATA[
-ll expo(ll base, ll exponent, ll mod) {								//return base^exponent modulo modulus
-    ll ans = 1;
-    while(exponent !=0 ) {
-        if((exponent&1) == 1) {
-            ans = ans*base ;
-            ans = ans%mod;
-        }
-        base = base*base;
-        base %= mod;
-        exponent>>= 1;
-    }
-    return ans%mod;
+ll expo(ll a,ll n,ll mod){
+	ll ans=1;
+	while(n){
+		if(n&1){
+			ans=(ans*a)%mod;
+			n--;
+		}
+		else{
+			a=(a*a)%mod;
+			n/=2;
+		}
+	}
+	return ans;
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>expo</tabTrigger>
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<scope>source.c,source.c++</scope>
+	<!-- <scope>source.python</scope> -->
 </snippet>

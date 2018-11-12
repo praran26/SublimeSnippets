@@ -1,0 +1,23 @@
+<snippet>
+	<content><![CDATA[
+template<typename T>
+void convex_hull(vector<pair<T,T>> pts, vector<pair<T,T>>& hull) {
+	auto cross=[](pair<T,T> A, pair<T,T> B, pair<T,T> C) {
+		return (B.F - A.F)*(C.S - A.S) - (B.S - A.S)*(C.F - A.F);
+	};
+	hull.clear(); sort(pts.begin(), pts.end());
+	for (int i = 0; i < sz(pts); i++) {
+		while (sz(hull) >= 2 && cross(hull[sz(hull)-2], hull.back(), pts[i]) <= 0) hull.pop_back();
+		hull.pb(pts[i]);
+	} int s = sz(hull);
+	for (int i = sz(pts)-2; i >= 0; i--) {
+		while (sz(hull) >= s+1 && cross(hull[sz(hull)-2], hull.back(), pts[i]) <= 0) hull.pop_back();
+		hull.pb(pts[i]);
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>convex_hull</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
